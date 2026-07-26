@@ -49,7 +49,15 @@ Address  Sfax, Tunisia`,
   clear: () => { screen.innerHTML = ''; return null; }
 };
 
-// ---- Plumbing below: boot sequence, typing, input handling ----
+let cursorEl = null;
+function showCursor(){
+  if (cursorEl) cursorEl.remove();
+  cursorEl = document.createElement('span');
+  cursorEl.className = 'cursor-blink';
+  screen.appendChild(cursorEl);
+  screen.scrollTop = screen.scrollHeight;
+}
+
 const screen = document.getElementById('screen');
 const input = document.getElementById('cmd-input');
 
@@ -71,16 +79,16 @@ async function typeLine(text, delay = 15) {
 }
 
 async function boot() {
-    screen.innerHTML='';
+  screen.innerHTML = '';
   const bootLines = [
     'Booting farouk@sfax OS...',
     'Loading CV modules... done',
     'Type "help" to see available commands.',
-    ''
   ];
   for (const line of bootLines) {
     await typeLine(line);
   }
+  showCursor();
 }
 
 input.addEventListener('keydown', (e) => {
@@ -98,6 +106,18 @@ input.addEventListener('keydown', (e) => {
   } else {
     print(`<span class="red">command not found: ${cmd}</span> — type <span class="cyan">help</span>`);
   }
+  showCursor();
+});
+
+document.getElementById('quick-commands').addEventListener('click', (e) => {
+  const btn = e.target.closest('button');
+  if (!btn) return;
+  const cmd = btn.dataset.cmd;
+  print(`<span class="cyan">farouk@sfax:~$</span> ${cmd}`);
+  const output = commands[cmd]();
+  if (output) print(output);
+  input.focus();
+  showCursor();
 });
 
 boot();
