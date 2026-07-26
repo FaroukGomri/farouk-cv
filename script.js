@@ -1,0 +1,103 @@
+// ---- Content: edit this to update your CV ----
+const commands = {
+  help: () => `Available commands:
+  whoami       - who is Farouk
+  experience   - work history
+  skills       - technical skills
+  education    - degree info
+  languages    - spoken languages
+  contact      - how to reach me
+  github       - open my GitHub
+  clear        - clear the screen`,
+
+  whoami: () => `Farouk Gomri
+Junior Software Developer — Sfax, Tunisia
+Backend-focused, .NET / ASP.NET Core specialist.
+Building scalable APIs with clean architecture since 2024.`,
+
+  experience: () => `<span class="cyan">2025 — Current</span>  Freelance Backend Developer
+  Designed backend systems using ASP.NET Core.
+  Built scalable APIs with modular architecture.
+  Implemented authentication & role-based authorization.
+
+<span class="cyan">2025</span>            Intern @ ACS Advanced Computer Solutions
+  Built an asset management system for tracking resources.
+  Diagnosed and resolved functionality issues.
+
+<span class="cyan">2024</span>            Intern @ Infosoft
+  Contributed to application development and debugging.`,
+
+  skills: () => `C#   Python   JavaScript   SQL   .NET`,
+
+  education: () => `Bachelor's Degree, Computer Science — Big Data Analysis (2025)
+University of Sfax — Higher Institute of Multimedia`,
+
+  languages: () => `Arabic     native
+English    fluent
+French     intermediate
+Spanish    basic`,
+
+  contact: () => `Email    farouk.gomri@gmail.com
+Phone    22 604 485
+Address  Sfax, Tunisia`,
+
+  github: () => {
+    window.open('https://github.com/FaroukGomri', '_blank');
+    return `Opening github.com/FaroukGomri ...`;
+  },
+
+  clear: () => { screen.innerHTML = ''; return null; }
+};
+
+// ---- Plumbing below: boot sequence, typing, input handling ----
+const screen = document.getElementById('screen');
+const input = document.getElementById('cmd-input');
+
+function print(html) {
+  const line = document.createElement('div');
+  line.innerHTML = html;
+  screen.appendChild(line);
+  screen.scrollTop = screen.scrollHeight;
+}
+
+async function typeLine(text, delay = 15) {
+  const line = document.createElement('div');
+  screen.appendChild(line);
+  for (const char of text) {
+    line.innerHTML += char;
+    await new Promise(r => setTimeout(r, delay));
+  }
+  screen.scrollTop = screen.scrollHeight;
+}
+
+async function boot() {
+    screen.innerHTML='';
+  const bootLines = [
+    'Booting farouk@sfax OS...',
+    'Loading CV modules... done',
+    'Type "help" to see available commands.',
+    ''
+  ];
+  for (const line of bootLines) {
+    await typeLine(line);
+  }
+}
+
+input.addEventListener('keydown', (e) => {
+  if (e.key !== 'Enter') return;
+  const raw = input.value.trim();
+  const cmd = raw.toLowerCase();
+  print(`<span class="cyan">farouk@sfax:~$</span> ${raw}`);
+  input.value = '';
+
+  if (cmd in commands) {
+    const output = commands[cmd]();
+    if (output) print(output);
+  } else if (cmd === '') {
+    
+  } else {
+    print(`<span class="red">command not found: ${cmd}</span> — type <span class="cyan">help</span>`);
+  }
+});
+
+boot();
