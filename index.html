@@ -3,34 +3,87 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Farouk Gomri — cd ~/cv</title>
+  <title>Farouk Gomri — Backend Developer</title>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💻</text></svg>">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <main class="terminal" role="main">
-    <div class="titlebar">
-      <span class="dot red"></span>
-      <span class="dot yellow"></span>
-      <span class="dot green"></span>
-      <span class="titlebar-text">farouk@sfax: ~/cv</span>
-    </div>
 
-    <div class="screen" id="screen">
+  <nav class="sitenav">
+    <span class="logo">farouk<span class="cyan">_</span>gomri</span>
+    <div class="nav-links">
+      <a href="#terminal">terminal</a>
+      <a href="#experience">experience</a>
+      <a href="#skills">skills</a>
+      <a href="#contact">contact</a>
     </div>
+  </nav>
 
-    <div class="quick-commands" id="quick-commands">
-    <button data-cmd="whoami">whoami</button>
-    <button data-cmd="experience">experience</button>
-    <button data-cmd="skills">skills</button>
-    <button data-cmd="contact">contact</button>
-    </div>
+  <section class="hero">
+    <p class="eyebrow">// backend developer — sfax, tunisia</p>
+    <h1>Farouk Gomri</h1>
+    <p class="hero-sub">I build APIs that don't fall over.<br>ASP.NET Core · clean architecture · modular systems.</p>
+    <a href="#terminal" class="hero-cta">$ explore --interactive</a>
+  </section>
 
-    <div class="input-line">
-      <span class="prompt">farouk@sfax:~$</span>
-      <input type="text" id="cmd-input" autocomplete="off" spellcheck="false" autofocus>
+  <section id="terminal" class="terminal-section">
+    <p class="section-label">try it yourself</p>
+    <main class="terminal" role="main">
+      <div class="titlebar">
+        <span class="dot red"></span>
+        <span class="dot yellow"></span>
+        <span class="dot green"></span>
+        <span class="titlebar-text">farouk@sfax: ~/cv</span>
+      </div>
+      <div class="screen" id="screen"></div>
+      <div class="quick-commands" id="quick-commands">
+        <button data-cmd="whoami">whoami</button>
+        <button data-cmd="experience">experience</button>
+        <button data-cmd="skills">skills</button>
+        <button data-cmd="contact">contact</button>
+      </div>
+      <div class="input-line">
+        <span class="prompt">farouk@sfax:~$</span>
+        <input type="text" id="cmd-input" autocomplete="off" spellcheck="false">
+      </div>
+    </main>
+  </section>
+
+  <section id="experience" class="experience-section">
+    <p class="section-label">experience</p>
+    <div class="timeline">
+      <div class="timeline-item">
+        <span class="timeline-date">2025 — current</span>
+        <h3>Freelance Backend Developer</h3>
+        <p>Designed backend systems using ASP.NET Core. Built scalable APIs with modular architecture. Implemented authentication & role-based authorization.</p>
+      </div>
+      <div class="timeline-item">
+        <span class="timeline-date">2025</span>
+        <h3>Intern — ACS Advanced Computer Solutions</h3>
+        <p>Built an asset management system for tracking resources. Diagnosed and resolved functionality issues.</p>
+      </div>
+      <div class="timeline-item">
+        <span class="timeline-date">2024</span>
+        <h3>Intern — Infosoft</h3>
+        <p>Contributed to application development and debugging.</p>
+      </div>
     </div>
-  </main>
+  </section>
+
+  <section id="skills" class="skills-section">
+    <p class="section-label">skills</p>
+    <div class="skills-grid">
+      <span>C#</span><span>Python</span><span>JavaScript</span><span>SQL</span><span>.NET</span>
+    </div>
+  </section>
+
+  <footer id="contact" class="site-footer">
+    <p class="section-label">contact</p>
+    <a href="mailto:farouk.gomri@gmail.com">farouk.gomri@gmail.com</a>
+    <a href="https://github.com/FaroukGomri" target="_blank">github.com/FaroukGomri</a>
+    <p class="footer-note">Sfax, Tunisia</p>
+  </footer>
+
 </body>
 <script src="script.js"></script>
 </html>
