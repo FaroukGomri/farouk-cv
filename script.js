@@ -137,4 +137,58 @@ crtToggle.addEventListener('click', () => {
 const savedCrt = localStorage.getItem(CRT_KEY) === '1';
 setCrtMode(savedCrt);
 
+const revealObserver  = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('in-view');
+      revealObserver.unobserve(entry.target);
+    }
+  });
+}, {threshold: 0.5});
+
+document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+// ===== Background code rain (layered over the dot-grid) =====
+const canvas = document.getElementById('bg-canvas');
+const ctx = canvas.getContext('2d');
+const rainChars = '01アイウエオカキクケコ{}[]<>/;=+-'.split('');
+let columns, drops;
+
+function setupRain() {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+  const fontSize = 16;
+  columns = Math.floor(canvas.width / fontSize);
+  drops = new Array(columns).fill(0).map(() => Math.random() * -100);
+}
+
+function drawRain() {
+  ctx.globalCompositeOperation = 'destination-out';
+  ctx.fillStyle = 'rgba(0, 0, 0, 0.08)';
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+  ctx.globalCompositeOperation = 'source-over';
+  ctx.fillStyle = 'rgba(232, 180, 101, 0.35)';
+  ctx.font = '16px JetBrains Mono, monospace';
+
+  drops.forEach((y, i) => {
+    const char = rainChars[Math.floor(Math.random() * rainChars.length)];
+    const x = i * 16;
+    ctx.fillText(char, x, y);
+    if (y > canvas.height && Math.random() > 0.98) {
+      drops[i] = 0;
+    } else {
+      drops[i] += 16;
+    }
+  });
+}
+
+const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+if (!prefersReducedMotion) {
+  setupRain();
+  window.addEventListener('resize', setupRain);
+  setInterval(drawRain, 90);
+}
+
 boot();
