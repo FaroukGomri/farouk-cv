@@ -120,4 +120,21 @@ document.getElementById('quick-commands').addEventListener('click', (e) => {
   showCursor();
 });
 
+const crtToggle = document.getElementById('crt-toggle');
+const CRT_KEY = 'crt-mode-enabled';
+
+function setCrtMode(enabled) {
+  document.body.classList.toggle('crt-mode', enabled);
+  crtToggle.setAttribute('aria-pressed', enabled);
+  localStorage.setItem(CRT_KEY, enabled ? '1' : '0');
+}
+
+crtToggle.addEventListener('click', () => {
+  const isOn = document.body.classList.contains('crt-mode');
+  setCrtMode(!isOn);
+});
+
+const savedCrt = localStorage.getItem(CRT_KEY) === '1';
+setCrtMode(savedCrt);
+
 boot();

@@ -361,3 +361,126 @@ section, footer {
     padding: 5px 10px;
   }
 }
+
+.crt-toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--muted);
+  font-family: inherit;
+  font-size: 12px;
+  padding: 6px 12px;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: border-color 0.2s, color 0.2s;
+}
+
+.crt-toggle:hover {
+  border-color: var(--cyan);
+  color: var(--cyan);
+}
+
+.crt-toggle-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--muted);
+  transition: background 0.2s, box-shadow 0.2s;
+}
+
+.crt-toggle[aria-pressed="true"] .crt-toggle-dot {
+  background: var(--amber);
+  box-shadow: 0 0 6px var(--amber);
+}
+
+.crt-toggle[aria-pressed="true"] {
+  border-color: var(--amber);
+  color: var(--amber);
+}
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+}
+
+.crt-toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--muted);
+  font-family: inherit;
+  font-size: 12px;
+  line-height: 1;
+  padding: 7px 12px;  
+  margin: 0; 
+  border-radius: 20px;
+  cursor: pointer;
+  transition: border-color 0.2s, color 0.2s;
+}
+
+body.crt-mode::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse at center, rgba(255,255,255,0.04) 0%, rgba(0,0,0,0) 45%, rgba(0,0,0,0.15) 75%, rgba(0,0,0,0.5) 100%),
+    linear-gradient(rgba(255,255,255,0.03) 50%, rgba(0,0,0,0.1) 50%);
+  background-size: 100% 100%, 100% 4px;
+}
+
+body.crt-mode::after {
+  content: '';
+  position: fixed;
+  left: 0;
+  right: 0;
+  height: 120px;
+  z-index: 998;
+  pointer-events: none;
+  background: linear-gradient(
+    to bottom,
+    rgba(232, 180, 101, 0) 0%,
+    rgba(232, 180, 101, 0.05) 50%,
+    rgba(232, 180, 101, 0) 100%
+  );
+  animation: scanroll 8s linear infinite;
+}
+
+@keyframes scanroll {
+  0% { top: -120px; }
+  100% { top: 100vh; }
+}
+
+body.crt-mode h1,
+body.crt-mode .logo,
+body.crt-mode .timeline-item h3 {
+  text-shadow: 0 0 8px rgba(232, 180, 101, 0.5);
+}
+
+body.crt-mode .terminal {
+  position: relative;
+  border-radius: 16px / 24px;
+}
+
+body.crt-mode .terminal::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  box-shadow:
+    2px 0 0 rgba(255,0,60,0.06),
+    -2px 0 0 rgba(0,255,255,0.06);
+  pointer-events: none;
+  border-radius: inherit;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body.crt-mode::after {
+    animation: none;
+  }
+}
